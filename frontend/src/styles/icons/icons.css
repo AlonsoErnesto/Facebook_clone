@@ -748,3 +748,12 @@
   height: 21px;
   width: 21px;
 }
+.compact_icon {
+  background-image: url(../../../public/icons/icons30.png);
+  background-position: 0px -130px;
+  background-size: auto;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
