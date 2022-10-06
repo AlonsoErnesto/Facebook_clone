@@ -160,7 +160,7 @@ export default function RegisterForm({ setVisible }) {
                 />
                 <RegisterInput
                   type="text"
-                  placeholder="Surname"
+                  placeholder="Last Name"
                   name="last_name"
                   onChange={handleRegisterChange}
                 />
