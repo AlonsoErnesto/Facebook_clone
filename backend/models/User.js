@@ -9,9 +9,15 @@ const userSchema = mongoose.Schema({
     trim: true,
     text: true,
   },
-  username: {
+  last_name: {
     type: String,
     required: [true, "El apellido es requerido"],
+    trim: true,
+    text: true,
+  },
+  username: {
+    type: String,
+    required: [true, "El usuario es requerido"],
     trim: true,
     text: true,
     unique: true
