@@ -9,3 +9,4 @@
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11",
     "react-responsive": "^9.0.0",
+    "emoji-picker-react": "^4.3.0",
