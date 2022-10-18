@@ -79,7 +79,6 @@ const App = () => {
   };
 
 
-  console.log(posts)
   return (
     <div>
       { visible && <CreatePostPopup user={user} setVisible={setVisible}/> }

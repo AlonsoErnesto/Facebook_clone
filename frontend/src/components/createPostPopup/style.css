@@ -47,7 +47,7 @@
  .box_privacy {
    display: flex;
    align-items: center;
-   width: 81px;
+   width: 85px;
    gap: 4px;
    font-size: 12px;
    padding: 3px 8px 4px 8px;
@@ -294,8 +294,6 @@
    object-fit: cover;
  }
  
-
- /* BAD CODE------- */
  .preview3 {
    height: 100%;
    width: 100%;

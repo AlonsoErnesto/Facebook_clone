@@ -93,7 +93,7 @@ const CreatePostPopup = ({user,setVisible}) => {
                   </div>
                   <div className="box_privacy">
                      <img src="../../../icons/public.png" alt=""/>
-                     <span>Publico</span>
+                     <span>Publico </span>
                      <i className="arrowDown_icon"></i>
                   </div>
                </div>
@@ -122,7 +122,7 @@ const CreatePostPopup = ({user,setVisible}) => {
             )}
             <AddToYourPost setShowPrev={setShowPrev}/>
             <button className="post_submit" disabled={loading} onClick={()=>{postSubmit()}}>
-               { loading ? <PulseLoader color="#fff" size={5}/> : "Post"}
+               { loading ? <PulseLoader color="#fff" size={5}/> : "Publicar"}
             </button>
          </div>   
       </div>

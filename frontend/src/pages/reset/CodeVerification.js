@@ -27,7 +27,6 @@ const CodeVerification = (props) => {
          .min('5',"Min. 5 caracteres.")
          .max('5',"Max. 5 catacteres.")
    })
-   console.log(email);
    return (
          <div className="reset_form">
          <div className="reset_form_header">Codigo de Verificacion.</div>
