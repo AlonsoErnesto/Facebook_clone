@@ -1,4 +1,7 @@
 const express = require("express");
+
+
+
 const {
   register,
   activateAccount,
@@ -10,7 +13,9 @@ const {
   validateResetCode,
   changePassword
 } = require("../controllers/user");
-const { authUser } = require("../middlwares/auth");
+const { authUser } = require("../middlewares/auth");
+
+
 
 const router = express.Router();
 
