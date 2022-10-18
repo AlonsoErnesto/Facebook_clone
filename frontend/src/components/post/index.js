@@ -39,7 +39,7 @@ const  Post = ({post,user}) => {
                </div>
             </div>
          </Link>
-         <div className="post_header_right hover1" onClick={()=>setShowMenu(prev => !prev)}>
+         <div className="post_header_right hover1" onClick={()=>{setShowMenu((prev) => !prev)}}>
             <Dots color="#828387"/>
          </div>
       </div>
