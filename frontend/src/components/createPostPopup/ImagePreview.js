@@ -3,12 +3,21 @@ import EmojiPickerBackground from './EmojiPickerBackground';
 
 const ImagePreview = (props) => {
 
-   const {text,user,setText,images,setImages,setShowPrev} = props;
+   const {text,user,setText,images,setImages,setShowPrev,setError} = props;
    const imageInputRef = useRef(null);
 
    const handleImages = (e) => {
       let files = Array.from(e.target.files);
       files.forEach((img)=> {
+        if(img.type !== 'image/jpeg' && img.type !== 'image/jpg' && img.type !== 'image/png' && img.type !== 'image/webp' && img.type && 'image/gif'){
+          setError(`${img.name}, no es soportado por su tipo de formato, intente con otro archivo.`)
+          files = files.filter((item)=> item.name !== img.name);
+          return;
+        } else if(img.size > 1024 * 1024  * 10){
+          setError(`${img.name}, no es soportado por su peso, intente con otro archivo menos pesado.`)
+          files = files.filter((item)=> item.name !== img.name);
+          return;
+        }
          const reader = new FileReader();
          reader.readAsDataURL(img);
          reader.onload = (readerEvent) => {

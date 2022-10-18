@@ -12,24 +12,23 @@ import './style.css'
 
 // import useClickOutside from "../../helpers/clickOutside";
 
-export default function Home () {
+export default function Home ({setVisible,posts}) {
 
-   // const [ visible, setVisible ] = useState(false);
-   // const el = useRef(null);
-   // useClickOutside(el,()=>{
-   //    setVisible(false)
-   // });
    const {user} = useSelector((state)=>({...state}));
 
    return (
       <div className="home">
          <Header/>
-         {/* {visible && <div className="card" ref={el}></div>} */}
          <LeftHome user={user}/>
          <div className="home_middle">
             <Storires/>
             { user.verified === false && <SendVerification user={user}/> }
-            <CreatePost user={user}/>
+            <CreatePost user={user} setVisible={setVisible}/>
+            {posts.map((post)=>(
+               <div className="post" key={post._id}>
+                  {post._id}
+               </div>
+            ))}
          </div>
          <RightHome user={user}/>
       </div>

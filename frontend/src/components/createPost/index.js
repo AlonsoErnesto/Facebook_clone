@@ -2,12 +2,12 @@ import React from 'react';
 import { LiveVideo,Photo,Feeling } from '../../svg';
 import './style.css';
 
-const CreatePost = ({user}) => {
+const CreatePost = ({user,setVisible}) => {
    return (
       <div className="createPost">
          <div className="createPost_header">
             <img src={user?.picture} alt=""/>
-            <div className="open_post hover2">
+            <div className="open_post hover2" onClick={()=>{setVisible(true)}}>
                En que piensas {user.first_name}?
             </div>
          </div>
