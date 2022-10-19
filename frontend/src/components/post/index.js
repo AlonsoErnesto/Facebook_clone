@@ -34,8 +34,7 @@ const  Post = ({post,user}) => {
                <div className="post_profile_privacy_date">
                   <Moment fromNow interval={30}>
                      {post.createdAt}
-                  </Moment>
-                  . <Public color="#828387"/>
+                  </Moment> . <Public color="#828387"/>
                </div>
             </div>
          </Link>
