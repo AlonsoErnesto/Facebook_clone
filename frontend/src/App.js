@@ -12,33 +12,7 @@ import LoggedInRoutes from './routes/LoggedinRoutes';
 import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 import CreatePostPopup from './components/createPostPopup';
 import { useSelector } from 'react-redux';
-
-function reducer(state,action){
-  switch (action.type){
-    case "POSTS_REQUEST":
-      return {
-        ...state,
-        loading:true,
-        error:""
-      };
-    case "POSTS_SUCCESS":
-      return {
-        ...state,
-        loading:false,
-        posts:action.payload,
-        error:""
-      };
-    case "POSTS_ERROR":
-      return {
-        ...state,
-        loading:false,
-        error:action.payload
-      };
-    default:
-      return state;
-  }
-}
-
+import { postsReducer } from './functions/reducers'
 
 const App = () => {
 
@@ -46,7 +20,7 @@ const App = () => {
 
   const [visible, setVisible] = useState(false);
   const { user } = useSelector((state)=>({...state}));
-  const [{ loading, error, posts}, dispatch] = useReducer(reducer,{
+  const [{ loading, error, posts}, dispatch] = useReducer(postsReducer,{
     loading:false,
     posts: [],
     error:"",
@@ -85,6 +59,7 @@ const App = () => {
       <Routes>
         <Route element={<LoggedInRoutes/>}>
           <Route path='/profile' element={<Profile/>}exact/>
+          <Route path='/profile/:username' element={<Profile/>}exact/>
           <Route path='/' element={<Home setVisible={setVisible} posts={posts}/>}exact/>
           <Route path='/activate/:token' element={<Activate/>}exact/>
         </Route>

@@ -233,3 +233,16 @@ exports.changePassword = async (req,res) => {
   );
     return res.status(200).json({message:"ok"});
 }
+
+exports.getProfile = async (req,res) => {
+  try {
+    const { username } = req.params;
+    const profile = await User.findOne({username}).select("-password");
+    if (!profile){
+      return res.json({ok:false});
+    }
+    res.json(profile);
+  } catch (err) {
+    return res.status(500).json({message:err.message});
+  }
+}
