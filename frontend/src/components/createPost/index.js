@@ -2,7 +2,7 @@ import React from 'react';
 import { LiveVideo,Photo,Feeling } from '../../svg';
 import './style.css';
 
-const CreatePost = ({user,setVisible}) => {
+const CreatePost = ({user,setVisible, profile}) => {
    return (
       <div className="createPost">
          <div className="createPost_header">
@@ -23,10 +23,17 @@ const CreatePost = ({user,setVisible}) => {
                <Photo color="#4bbf67"/>
                Foto o Video
             </div>
-            <div className='createPost_icon hover1'>
+            { profile ? (
+               <div className='createPost_icon hover1'>
+               <i className='lifeEvent_icon'></i>
+               Acontecimiento
+            </div>
+            ) : (
+               <div className='createPost_icon hover1'>
                <Feeling color="#f7b928"/>
                Sentimiento/actividad
             </div>
+            )}
          </div>
       </div>
    );

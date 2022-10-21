@@ -130,12 +130,12 @@ export const stories = [
   },
   {
     profile_picture:"../../stories/profile4.jfif",
-    profile_name:"Football",
+    profile_name:"Football world",
     image:"../../stories/4.jpg"
   },
   {
     profile_picture:"../../stories/profile5.png",
-    profile_name:"The witcher",
+    profile_name:"The witcher del mundo crack",
     image:"../../stories/5.jfif"
   },
 ];
