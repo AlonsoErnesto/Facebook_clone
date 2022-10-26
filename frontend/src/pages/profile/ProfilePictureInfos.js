@@ -1,5 +1,5 @@
 
-const  ProfilePictureInfos = ({profile}) => {
+const  ProfilePictureInfos = ({profile,visitor}) => {
    return (
       <div className="profile_img_wrap">
          <div className="profile_w_left">
@@ -12,14 +12,16 @@ const  ProfilePictureInfos = ({profile}) => {
                   }}
                >
                </div>
-               <div className="profile_circle hover1">
-                  <i className="camera_filled_icon"></i>
-               </div>
+               { !visitor && (
+                  <div className="profile_circle hover1">
+                     <i className="camera_filled_icon"></i>
+                  </div>
+               )}
             </div>
             <div className="profile_w_col">
                <div className="profile_name">
                   {profile.first_name} {profile.last_name}
-                  <div className="othername">othername</div>
+                  <div className="othername">(Othername)</div>
                </div>
                <div className="profile_friend_count">
 
@@ -29,7 +31,9 @@ const  ProfilePictureInfos = ({profile}) => {
                </div>
             </div>
          </div>
-         <div className="profile_w_right">
+         { visitor ? ("")
+         : (
+            <div className="profile_w_right">
             <div className="blue_btn">
                <img src="../../../icons/plus.png" alt="" className="invert"/>
                <span>Agregar a historia</span>
@@ -39,6 +43,7 @@ const  ProfilePictureInfos = ({profile}) => {
                <span>Editar perfil</span>
             </div>
          </div>
+         )}
       </div>
    )
 }

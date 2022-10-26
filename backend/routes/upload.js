@@ -13,7 +13,7 @@ const imageUpload = require("../middlewares/imageUpload");
 const router = express.Router();
 
 router.post("/uploadImages",authUser,imageUpload,uploadImages);
-router.get("/listImages",listImages)
+router.post("/listImages",authUser,listImages)
 
 
 module.exports = router;

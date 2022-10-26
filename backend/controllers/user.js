@@ -5,6 +5,7 @@ const {
 } = require("../helpers/validation");
 const User = require("../models/User");
 const Code = require("../models/Code");
+const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../helpers/tokens");
@@ -237,12 +238,15 @@ exports.changePassword = async (req,res) => {
 exports.getProfile = async (req,res) => {
   try {
     const { username } = req.params;
-    const profile = await User.findOne({username}).select("-password");
-    if (!profile){
-      return res.json({ok:false});
+    const profile = await User.findOne({ username }).select("-password");
+    if (!profile) {
+      return res.json({ ok: false });
     }
-    res.json(profile);
-  } catch (err) {
-    return res.status(500).json({message:err.message});
+    const posts = await Post.find({ user: profile._id })
+      .populate("user")
+      .sort({ createdAt: -1 });
+    res.json({ ...profile.toObject(), posts });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 }
