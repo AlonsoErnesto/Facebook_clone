@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 import { Dots, Public } from '../../svg'
 import Moment from 'react-moment';
+import 'moment/locale/es';
 import ReactsPopup from './ReactsPopup';
 import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
@@ -22,19 +23,19 @@ const  Post = ({post,user, profile}) => {
                   {post.user.first_name} {post.user.last_name}
                   <div className='updated_p'>
                      {post.type === "profilePicture" 
-                        && `updated ${post.user.gender === "male" 
-                        ? "El" : "Ella"} profile picture`
+                        && ` ${post.user.gender === "male" 
+                        ? "" : ""} cambio su foto de perfil.`
                      }
                      {post.type === "cover" 
                         && `updated ${post.user.gender === "male" 
-                        ? "El" : "Ella"} cover picture`
+                        ? "" : ""} cambio su foto de portada.`
                      }
                   </div>
                </div>
                <div className="post_profile_privacy_date">
-                  <Moment fromNow interval={30}>
+                  <Moment locale="es" style={{marginRight:"10px"}} fromNow interval={30}>
                      {post.createdAt}
-                  </Moment> . <Public color="#828387"/>
+                  </Moment><Public color="#828387"/>
                </div>
             </div>
          </Link>

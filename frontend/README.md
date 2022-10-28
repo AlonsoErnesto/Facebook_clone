@@ -11,4 +11,5 @@
     "react-responsive": "^9.0.0",
     "emoji-picker-react": "^4.3.0",
     "react-moment"     // Fecha de los post 
+    "moment-timezone"  // spanish
     "react-easy-crop"  // recorta las imagenes 

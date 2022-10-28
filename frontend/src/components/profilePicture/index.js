@@ -5,7 +5,7 @@ import './style.css';
 import UpdateProfilePicture from './UpdateProfilePicture';
 
 
-const Index = () => {
+const Index = ({username,setShow,pRef}) => {
 
 
    const refInput = useRef(null);
@@ -46,7 +46,7 @@ const Index = () => {
          />
          <div className="postBox pictureBox">
             <div className="box_header">
-               <div className="small_circle">
+               <div className="small_circle" onClick={()=>setShow(false)}>
                   <i className="exit_icon"></i>
                </div>
                <span>Subir foto de perfil</span>
@@ -74,7 +74,14 @@ const Index = () => {
             </div>
          </div>
          {
-            image && <UpdateProfilePicture setImage={setImage} image={image}/>
+            image && 
+               <UpdateProfilePicture 
+                  setImage={setImage} 
+                  image={image}
+                  setShow={setShow}
+                  setError={setError}
+                  pRef={pRef}
+               />
          }
       </div>
    )
