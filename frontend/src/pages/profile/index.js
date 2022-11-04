@@ -16,6 +16,7 @@ import GridPosts from "./GridPosts";
 import Post from "../../components/post";
 import Photos from "./Photos";
 import Friends from "./Friends";
+import Intro from '../../components/intro';
 
 const Profile =({setVisible})=> {
 
@@ -29,7 +30,11 @@ const Profile =({setVisible})=> {
       profile: {},
       error:"",
    });
+   const [othername, setOtherName] = useState("");
+
    useEffect(() => {getProfile()}, [userName]);
+   useEffect(() => {setOtherName(profile?.details?.otherName)},[profile]);
+
    var visitor = userName === user.username ? false : true;
 
    
@@ -76,14 +81,18 @@ const Profile =({setVisible})=> {
       }
    }
 
-   console.log(photos)
    return (
    <div className="profile">
       <Header page="profile"/>
       <div className="profile_top">
          <div className="profile_container">
-               <Cover cover={profile.cover} visitor={visitor}/>
-               <ProfilePictureInfos profile={profile} visitor={visitor}  photos={photos.resources}/>
+               <Cover cover={profile.cover} visitor={visitor} photos={photos.resources}/>
+               <ProfilePictureInfos 
+                  profile={profile} 
+                  visitor={visitor}  
+                  photos={photos.resources} 
+                  othername={othername}
+               />
                <ProfileMenu/>
          </div>
       </div>
@@ -93,6 +102,7 @@ const Profile =({setVisible})=> {
                <PpYouMayKnow/>
                <div className="profile_grid">
                   <div className="profile_left">
+                     <Intro detailss={profile.details} visitor={visitor} setOtherName={setOtherName}/>
                      <Photos userName={userName} token={user.token} photos={photos}/>
                      <Friends friends={profile.friends}/>
                      <div className="relative_fb_copyright">

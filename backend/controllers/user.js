@@ -139,6 +139,8 @@ exports.login = async (req, res) => {
       picture: user.picture,
       first_name: user.first_name,
       last_name: user.last_name,
+      // add line
+      gender:user.gender, 
       token: token,
       verified: user.verified,
     });
@@ -270,6 +272,24 @@ exports.updateCover = async (req,res) => {
       cover: url,
     });
     res.send(url);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+exports.updateDetails = async (req,res) => {
+  try {
+    const { infos } = req.body;
+    const updated = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        details:infos,
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(updated.details);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
