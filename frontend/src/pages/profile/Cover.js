@@ -7,13 +7,15 @@ import { createPost } from "../../functions/post";
 import { updateCover } from "../../functions/user";
 import { useSelector } from "react-redux";
 import PulseLoader from "react-spinners/PulseLoader";
+import OldCover from "./OldCover";
 
 
-const Cover = ({cover,visitor}) => {
+const Cover = ({cover,visitor,photos}) => {
 
    const [showCoverMenu, setShowCoverMenu] = useState(false);
    const [coverPicture, setCoverPicture] = useState("");
    const [loading, setLoading] = useState(false);
+   const [show, setShow] = useState(false);
    const { user } = useSelector((state)=>({...state}));
    const menuRef = useRef(null);
    const refInput = useRef(null);
@@ -167,12 +169,12 @@ const Cover = ({cover,visitor}) => {
             <div className="update_cover_wrapper">
                <div className="open_cover_update" onClick={()=>{setShowCoverMenu((prev)=>!prev)}}>
                   <i className="camera_filled_icon"></i>
-                  Add cover photo
+                  Cambiar portada
                </div>
                <div >
                   {showCoverMenu && 
                   <div className="open_cover_menu" ref={menuRef}>
-                     <div className="open_cover_menu_item hover1">
+                     <div className="open_cover_menu_item hover1" onClick={()=>setShow(true)}>
                         <i className="photo_icon"></i>
                         Selecccionar foto
                      </div>
@@ -184,6 +186,9 @@ const Cover = ({cover,visitor}) => {
                </div>
             </div>
          )}
+         {
+            show && <OldCover setCoverPicture={setCoverPicture} photos={photos} setShow={setShow}/>
+         }
       </div>
    )
 }
