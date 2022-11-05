@@ -1,4 +1,4 @@
-import { useReducer, useEffect,useState} from "react";
+import { useReducer, useEffect,useState,useRef} from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom"
 import axios from 'axios';
@@ -81,10 +81,16 @@ const Profile =({setVisible})=> {
       }
    }
 
+   const profileTop = useRef(null);
+   const [height, setHeight] = useState();
+   useEffect(() => {
+      setHeight(profileTop.current.clientHeight + 300);
+   }, [loading]);
+
    return (
    <div className="profile">
       <Header page="profile"/>
-      <div className="profile_top">
+      <div className="profile_top" ref={profileTop}>
          <div className="profile_container">
                <Cover cover={profile.cover} visitor={visitor} photos={photos.resources}/>
                <ProfilePictureInfos 

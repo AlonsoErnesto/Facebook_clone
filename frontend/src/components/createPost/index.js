@@ -31,7 +31,7 @@ const CreatePost = ({user,setVisible, profile}) => {
             ) : (
                <div className='createPost_icon hover1'>
                <Feeling color="#f7b928"/>
-               Sentimiento/actividad
+               Actividad
             </div>
             )}
          </div>

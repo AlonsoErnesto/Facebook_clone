@@ -74,7 +74,7 @@ const  CreateComment = ({user}) => {
             <input type="text" 
                ref={textRef} 
                value={text}
-               placeholder="Escribe un comentario"
+               placeholder="Escribir comentario"
                onChange={(e)=> setText(e.target.value)} 
             />
             <div className='comment_circle_icon hover2' 
