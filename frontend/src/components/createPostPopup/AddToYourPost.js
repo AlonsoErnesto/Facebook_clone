@@ -4,7 +4,7 @@ import { Dots,Feeling,Photo } from '../../svg';
 const AddToYourPost = ({setShowPrev}) => {
    return (
       <div className="addtoyourpost">
-         <div className="addto_text">Agregar para tu Publicacion</div>
+         <div className="addto_text">Agrega a tu publicacion</div>
          <div className="post_header_right hover1" onClick={()=> {setShowPrev(true)}}>
             <Photo color="#45bd62"/>
          </div>
