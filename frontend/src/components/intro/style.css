@@ -105,6 +105,7 @@
    font-size: 14px;
    cursor: pointer;
 }
+
 .add_details_flex .edit_icon {
    position: absolute;
    right: 1rem;
@@ -114,6 +115,11 @@
 .underline:hover{
    text-decoration: underline;
 }
+
+.underline:hover{
+   text-decoration: underline;
+}
+
 .select_rel {
    height: 30px;
    outline: none;
