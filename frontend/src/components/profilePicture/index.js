@@ -53,7 +53,7 @@ const Index = ({username,setShow,pRef,photos}) => {
                <div className="small_circle" onClick={()=>setShow(false)}>
                   <i className="exit_icon"></i>
                </div>
-               <span>Subir foto de perfil</span>
+               <span>Foto de perfil</span>
             </div>
             <div className='update_picture_wrap' >
                <div className='update_picture_buttons'>

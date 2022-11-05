@@ -65,7 +65,8 @@
 }
 
 .infosBox {
-   height: 82vh;
+   height: auto;
+   padding-bottom: 20px;
    width: 800px !important;
 }
 .details_wrapper {
@@ -124,4 +125,10 @@
    margin: 10px 0;
    padding: 0 10px;
    border-radius: 5px;
+}
+
+@media (max-width:810px){
+   .infosBox {
+      width: 95% !important;
+   }
 }
