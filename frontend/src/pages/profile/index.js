@@ -103,6 +103,10 @@ const Profile =({setVisible})=> {
    const getScroll = () => {
       setScrollHeight(window.pageYOffset);
    };
+   const [height, setHeight] = useState();
+   useEffect(() => {
+      setHeight(profileTop.current.clientHeight + 300);
+   }, [loading]);
 
    return (
    <div className="profile">
