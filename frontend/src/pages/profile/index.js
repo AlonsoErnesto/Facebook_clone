@@ -17,6 +17,7 @@ import Post from "../../components/post";
 import Photos from "./Photos";
 import Friends from "./Friends";
 import Intro from '../../components/intro';
+import {useMediaQuery} from 'react-responsive';
 
 const Profile =({setVisible})=> {
 
@@ -82,6 +83,26 @@ const Profile =({setVisible})=> {
    }
 
    const profileTop = useRef(null);
+   const leftSide = useRef(null);
+   const [height, setHeight] = useState();
+   const [leftHeight, setLeftHeight] = useState();
+   const [scrollHeight, setScrollHeight] = useState();
+   useEffect(() => {
+      setHeight(profileTop.current.clientHeight + 300);
+      setLeftHeight(leftSide.current.clientHeight);
+      window.addEventListener("scroll",getScroll,{ passive:true});
+      return () => {
+         window.addEventListener("scroll",getScroll,{passive:true});
+      }
+   }, [loading,scrollHeight]);
+
+   const check = useMediaQuery({
+      query: "(min-width:901px",
+   });
+
+   const getScroll = () => {
+      setScrollHeight(window.pageYOffset);
+   };
    const [height, setHeight] = useState();
    useEffect(() => {
       setHeight(profileTop.current.clientHeight + 300);
@@ -106,8 +127,11 @@ const Profile =({setVisible})=> {
          <div className="profile_container">
             <div className="bottom_container">
                <PpYouMayKnow/>
-               <div className="profile_grid">
-                  <div className="profile_left">
+               <div 
+                  className={`profile_grid ${check && scrollHeight >= height && leftHeight > 1000 ? 'scrollFixed showLess' 
+                              : check && scrollHeight >= height && leftHeight > 1000 && 'scrollFixed showMore'}`
+                  }>
+                  <div className="profile_left" ref={leftSide}>
                      <Intro detailss={profile.details} visitor={visitor} setOtherName={setOtherName}/>
                      <Photos userName={userName} token={user.token} photos={photos}/>
                      <Friends friends={profile.friends}/>
