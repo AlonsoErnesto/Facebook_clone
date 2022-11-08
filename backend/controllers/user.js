@@ -240,14 +240,36 @@ exports.changePassword = async (req,res) => {
 exports.getProfile = async (req,res) => {
   try {
     const { username } = req.params;
+    const user = await User.findById(req.user.id);
     const profile = await User.findOne({ username }).select("-password");
+    const friendship = {
+      friends:false,
+      followers:false,
+      requestSent:false,
+      requestReceived:false,
+    };
+
+
     if (!profile) {
       return res.json({ ok: false });
     }
+    if(user.friends.includes(profile._id) && profile.friends.includes(user._id)) {
+      friendship.friends = true;
+    }
+    if(user.following.includes(profile._id)){
+      friends.following = true;
+    }
+    if(user.request.includes(profile,_id)){
+      friendship.requestReceived = true;
+    }
+    if(profile.requests.includes(user._id)){
+      friendship.requestSent = true;
+    }
+
     const posts = await Post.find({ user: profile._id })
       .populate("user")
       .sort({ createdAt: -1 });
-    res.json({ ...profile.toObject(), posts });
+    res.json({ ...profile.toObject(), posts ,friendship});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -294,3 +316,214 @@ exports.updateDetails = async (req,res) => {
     res.status(500).json({ message: err.message });
   }
 }
+
+exports.addFriend = async (req,res) => {
+  try {
+    if( req.user.id !== req.params.id){
+      const sender = await User.findById(req.user.id);
+      const receiver = await User.findById(req.params.id);
+      if(!receiver.requests.includes(sender._id) && !receiver.friends.includes(sender._id)){
+        await receiver.updateOne({
+          $push : { requests:sender._id },
+        });
+        await receiver.updateOne({
+          $push : { followers:sender._id },
+        });
+        await sender.updateOne({
+          $push : { following:sender._id },
+        });
+        res.json({message:"Solicitud de amistad ha sido enviada."})
+      } else {
+        return res
+        .status(400)
+        .json({message:"No se pudo enviar la solicitud."});
+      };
+    }else {
+      return res
+      .status(400)
+      .json({message:"No puedes enviarte una solicitud a ti mismo."});
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+
+exports.cancelRequest = async (req,res) => {
+  try {
+    if( req.user.id !== req.params.id){
+      const sender = await User.findById(req.user.id);
+      const receiver = await User.findById(req.params.id);
+      if( receiver.requests.includes(sender._id) && !receiver.friends.includes(sender._id)){
+        await receiver.updateOne({
+          $pull : { requests:sender._id },
+        });
+        await receiver.updateOne({
+          $pull : { followers:sender._id },
+        });
+        await sender.updateOne({
+          $pull : { following:sender._id },
+        });
+        res.json({message:"Se cancelo correctamente."})
+      } else {
+        return res
+        .status(400)
+        .json({message:"No puedes cancelar una solicitud a ti mismo."});
+      };
+    }else {
+      return res
+      .status(400)
+      .json({message:"Solicitud de amistad ha sido cancelada."});
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+
+exports.follow = async (req,res) => { 
+  try {
+    if( req.user.id !== req.params.id){
+      const sender = await User.findById(req.user.id);
+      const receiver = await User.findById(req.params.id);
+      if(!receiver.followers.includes(sender._id) && !sender.following.includes(receiver._id)){
+        await receiver.updateOne({
+          $push : { followers:sender._id },
+        });
+        await sender.updateOne({
+          $push : { following:receiver._id },
+        });
+        res.json({message:"Se siguio correctamente."})
+      } else {
+        return res
+        .status(400)
+        .json({message:"Hubo un problema en seguir, intear otra vez."});
+      };
+    }else {
+      return res
+      .status(400)
+      .json({message:"No puedes seguirte a ti mismo."});
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+exports.unfollow = async (req,res) => {
+  try {
+    if( req.user.id !== req.params.id){
+      const sender = await User.findById(req.user.id);
+      const receiver = await User.findById(req.params.id);
+      if(receiver.followers.includes(sender._id) && sender.following.includes(receiver._id)){
+        await receiver.updateOne({
+          $push : { followers:sender._id },
+        });
+        await sender.updateOne({
+          $pull : { following:sender._id },
+        });
+        // Si agregas personas que siguen al perfil
+        await sender.updateOne({
+          $pull : { following:receiver._id },
+        });
+        res.json({message:"Se dejo de seguir correctamente."})
+      } else {
+        return res
+        .status(400)
+        .json({message:"No se realizo la funcion, intentar nuevamente."});
+      };
+    }else {
+      return res
+      .status(400)
+      .json({message:"No puedes dejarte de seguir a ti mismo."});
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+exports.unfriend = async (req,res) => {
+  try {
+    if( req.user.id !== req.params.id){
+      const sender = await User.findById(req.user.id);
+      const receiver = await User.findById(req.params.id);
+      if(receiver.friends.includes(sender._id) && sender.friends.includes(receiver._id)){
+        await receiver.update({
+          $pull : { friends:sender._id ,following:sender._id, followers:sender._id},
+        });
+        await sender.update({
+          $pull : { friends:receiver._id ,following:receiver._id, followers:receiver._id},
+        });
+        res.json({message:"Se elimino el amigo correctamente."})
+      } else {
+        return res
+        .status(400)
+        .json({message:"No se realizo la funcion, intentar nuevamente."});
+      };
+    }else {
+      return res
+      .status(400)
+      .json({message:"No puedes eliminarte como amigo a ti mismo."});
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+exports.deleteRequest = async (req,res) => {
+  try {
+    if( req.user.id !== req.params.id){
+      const receiver = await User.findById(req.user.id);
+      const sender = await User.findById(req.params.id);
+      if(receiver.requests.includes(sender._id)){
+        await receiver.update({
+          $pull : { requests:sender._id ,follow:sender._id},
+        });
+        await sender.update({
+          $pull : { following:receiver._id },
+        });
+        res.json({message:"Solicitud eliminada."})
+      } else {
+        return res
+        .status(400)
+        .json({message:"No se realizo la funcion, intentar nuevamente."});
+      };
+    }else {
+      return res
+      .status(400)
+      .json({message:"No puedes eliminarte a ti mismo."});
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+exports.acceptRequest = async (req,res) => {
+  try {
+    if( req.user.id !== req.params.id){
+      const receiver = await User.findById(req.user.id);
+      const sender = await User.findById(req.params.id);
+      if(receiver.requests.includes(sender._id)){
+        await receiver.update({
+          $push : { friends:sender._id ,following:sender._id},
+        });
+        await sender.update({
+          $push : { friends:receiver._id, followers:receiver._id },
+        });
+        await receiver.updateOne({
+          $pull : { requests:sender._id }, 
+        });
+        res.json({message:"Se acepto correctamente."})
+      } else {
+        return res
+        .status(400)
+        .json({message:"No se realizo la funcion, intentar nuevamente."});
+      };
+    }else {
+      return res
+      .status(400)
+      .json({message:"No puedes aceptarte a ti mismo."});
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
