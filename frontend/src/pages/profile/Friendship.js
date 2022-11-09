@@ -1,7 +1,7 @@
 import { useState, useRef,useEffect } from "react";
 import useClickOutside from "../../helpers/clickOutside";
 import {useSelector} from 'react-redux';
-import { addFriend, follow, unfollow, cancelRequest, acceptRequest } from "../../functions/user";
+import { addFriend, follow, unfollow, cancelRequest,unfriend, acceptRequest,deleteRequest } from "../../functions/user";
 
 const Friendship = ({friendshipp, profileid}) => {
 
@@ -45,7 +45,27 @@ const Friendship = ({friendshipp, profileid}) => {
          requestReceived:false,
       });
       await acceptRequest(profileid, user.token);
-   }
+   };
+   const unfriendHandler = async () => {
+      setFriendship({
+         ...friendship,
+         friends:false,
+         following:false,
+         requestSent:false,
+         requestReceived:false,
+      });
+      await unfriend(profileid, user.token);
+   };
+   const deleteRequestHandler = async () => {
+      setFriendship({
+         ...friendship,
+         friends:false,
+         following:false,
+         requestSent:false,
+         requestReceived:false,
+      });
+      await deleteRequest(profileid, user.token);
+   };
 
    return (
       <div className="friendship">
@@ -80,7 +100,7 @@ const Friendship = ({friendshipp, profileid}) => {
                            </div>
                            )
                         }
-                        <div className="open_cover_menu_item hover1">
+                        <div className="open_cover_menu_item hover1" onClick={()=>unfriendHandler()}>
                               <i className="unfriend_outlined_icon"></i>
                               Eliminar amigo
                            </div>
@@ -103,37 +123,39 @@ const Friendship = ({friendshipp, profileid}) => {
             ) : ( 
                friendship?.requestReceived && (
                      <div className="friends_menu_wrap">
-                     <button className="gray_btn" onClick={()=>setRespondMenu(false)}>
+                     <button className="gray_btn" onClick={()=>setRespondMenu(true)}>
                         <img src="../../../icons/friends.png" alt=""/>
                         <span>Responder</span>
                      </button>
                      { respondMenu && ( 
                         <div className="open_cover_menu" ref={menu1}>
                            <div className="open_cover_menu_item hover1" onClick={()=>acceptRequestHandler()}>Confirmar</div>
-                           <div className="open_cover_menu_item hover1">Eliminar</div>
+                           <div className="open_cover_menu_item hover1" onClick={()=>deleteRequestHandler()}>Eliminar</div>
                         </div>
                      )}
                   </div>
                )
             )
          }
-         {
-            friendship?.following ? (
-               <button className="gray_btn" onClick={() => unfollowHandler()}>
-                  <img src="../../../icons/follow.png" alt=""/>
-                  <span>Siguiendo</span>
-               </button>
-            ) : (
-               <button className="blue_btn" onClick={() => followHandler()}>
-                  <img src="../../../icons/follow.png" alt="" className="invert"/>
-                  <span>Seguir</span>
-               </button>
-            )
-         }
-         <button className={friendship?.friends ? "blue_btn" : "gray_btn"}>
-            <img src="../../../icons/message.png" alt="" className={friendsMenu.friends && "invert"}/>
-            <span>Mensaje</span>
-         </button>
+         <div className="flex">
+            {
+               friendship?.following ? (
+                  <button className="gray_btn" onClick={() => unfollowHandler()}>
+                     <img src="../../../icons/follow.png" alt=""/>
+                     <span>Siguiendo</span>
+                  </button>
+               ) : (
+                  <button className="blue_btn" onClick={() => followHandler()}>
+                     <img src="../../../icons/follow.png" alt="" className="invert"/>
+                     <span>Seguir</span>
+                  </button>
+               )
+            }
+            <button className={friendship?.friends ? "blue_btn" : "gray_btn"}>
+               <img src="../../../icons/message.png" alt="" className={friendship?.friends && "invert"}/>
+               <span>Mensaje</span>
+            </button>
+            </div>
       </div>
    )
 }
