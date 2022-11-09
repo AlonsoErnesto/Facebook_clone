@@ -506,6 +506,25 @@
    .update_cover_wrapper {
       bottom: 3rem;
    }
+
+   .profile_grid .createPost{
+      width: 100% !important;
+   }
+   .bottom_container {
+      padding: 5px;
+   }
+}
+
+@media (max-width:650px) {
+   .profile_menu_wrap {
+      display: none;
+      
+   }
+}
+@media (max-width:510px) { 
+   .update_cover_wrapper {
+      bottom: 3rem;
+   }
 }
 
 .scrollFixed .profile_left {
@@ -523,6 +542,7 @@
    top: 56px;
 }
 
+
 .friendship {
    z-index: 9;
    display: flex;
@@ -533,3 +553,4 @@
 .friendship .blue_btn{
    height: 35px;
 }
+
