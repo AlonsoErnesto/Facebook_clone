@@ -20,13 +20,13 @@ const Friends = ({friends}) => {
             </div>
          )}
          <div className="profile_card_grid">
-            {
+            {/* {
                friends && friends.slice(0,9).map((friend)=>(
                   <div className="profile_photo_card">
 
                   </div>
                ))
-            }
+            } */}
          </div>
       </div>
    )

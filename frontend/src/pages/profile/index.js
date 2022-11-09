@@ -108,6 +108,7 @@ const Profile =({setVisible})=> {
       setHeight(profileTop.current.clientHeight + 300);
    }, [loading]);
 
+
    return (
    <div className="profile">
       <Header page="profile"/>
