@@ -104,6 +104,7 @@ const Profile =({setVisible})=> {
       setScrollHeight(window.pageYOffset);
    };
 
+
    return (
    <div className="profile">
       <Header page="profile"/>
