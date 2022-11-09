@@ -241,7 +241,8 @@ exports.getProfile = async (req,res) => {
   try {
     const { username } = req.params;
     const user = await User.findById(req.user.id);
-    const profile = await User.findOne({ username }).select("-password");
+    const profile = await User.findOne({ username })
+          .select("-password");
     const friendship = {
       friends:false,
       following:false,
@@ -272,7 +273,7 @@ exports.getProfile = async (req,res) => {
     const posts = await Post.find({ user: profile._id })
       .populate("user")
       .sort({ createdAt: -1 });
-    await profile.populate("friends", "first_name last_name username picture");
+      await profile.populate("friends","first_name last_name username picture");
     res.json({ ...profile.toObject(), posts ,friendship});
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -421,12 +422,8 @@ exports.unfollow = async (req,res) => {
       const receiver = await User.findById(req.params.id);
       if(receiver.followers.includes(sender._id) && sender.following.includes(receiver._id)){
         await receiver.updateOne({
-          $push : { followers:sender._id },
+          $pull : { followers:sender._id },
         });
-        await sender.updateOne({
-          $pull : { following:sender._id },
-        });
-        // Si agregas personas que siguen al perfil
         await sender.updateOne({
           $pull : { following:receiver._id },
         });
