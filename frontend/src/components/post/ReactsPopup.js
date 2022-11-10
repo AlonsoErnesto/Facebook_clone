@@ -1,31 +1,38 @@
+import { reactPost } from '../../functions/post';
+import { useSelector } from 'react-redux';
+
+
 const reactsArray = [
    {
-      name:"Me gusta",
+      name:"like",
       image:"../../../reacts/like.gif",
    },
    {
-      name:"Me encanta",
+      name:"love",
       image:"../../../reacts/love.gif",
    },
    {
-      name:"Me divierte",
+      name:"haha",
       image:"../../../reacts/haha.gif",
    },
    {
-      name:"Me sorprende",
+      name:"wow",
       image:"../../../reacts/wow.gif",
    },
    {
-      name:"Me entristece",
+      name:"sad",
       image:"../../../reacts/sad.gif",
    },
    {
-      name:"Me emperra",
+      name:"angry",
       image:"../../../reacts/angry.gif",
    },
 ];
 
-const ReactsPopup = ({visible,setVisible}) => {
+const ReactsPopup = (props) => {
+
+   const {visible,setVisible,reactHandler} = props;
+
    return (
       <>
       {visible && (
@@ -40,7 +47,7 @@ const ReactsPopup = ({visible,setVisible}) => {
                }, 500);}}> 
 
             {reactsArray.map((react,i)=> (
-               <div className="react" key={i}>
+               <div className="react" key={i} onClick={()=>reactHandler(react.name)}>
                   <img src={react.image} alt=""/>
                </div>
             ))}
