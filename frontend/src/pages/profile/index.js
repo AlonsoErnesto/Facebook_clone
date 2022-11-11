@@ -159,7 +159,7 @@ const Profile =({setVisible})=> {
                         {  profile.posts &&
                            profile.posts.length ?
                            profile.posts.map((post)=>(
-                              <Post post={post} user={user} key={post._id} profile/>
+                              <Post post={post} user={user} key={post._id} profile={profile}/>
                            )):(
                            <div className="no_posts">
                               No se publicaron Posts
