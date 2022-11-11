@@ -8,6 +8,7 @@ import ReactsPopup from './ReactsPopup';
 import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
 import { getReacts,reactPost } from "../../functions/post";
+import Comment from "./Comment";
 
 const  Post = ({post,user, profile}) => {
    const [visible, setVisible] = useState(false);
@@ -15,11 +16,18 @@ const  Post = ({post,user, profile}) => {
    const [reacts, setReacts] = useState();
    const [check, setCheck] = useState();
    const [total, setTotal] = useState(0);
+   const [count, setCount] = useState(1);
+   const [comments, setComments] = useState([]);
+
 
    useEffect(() => {
       getPostReacts();
    }, [post]);
-   
+
+   useEffect(() => {
+      setComments(post?.comments);
+   }, [post]);
+
    const getPostReacts = async () => {
       const res = await getReacts(post._id,user.token);
       setReacts(res.reacts);
@@ -51,7 +59,10 @@ const  Post = ({post,user, profile}) => {
       }
    };
 
-   console.log(reacts)
+   const showMore = () => {
+      setCount((prev)=>prev + 3);
+   };
+
 
    return (
    <div className='post' style={{width:`${profile && "100%"}`}}>
@@ -147,8 +158,8 @@ const  Post = ({post,user, profile}) => {
             </div>
          </div>
          <div className='to_right'>
-            <div className='comments_count'>3 comentarios</div>
-            <div className='share_count'>1 compartido</div>
+            <div className='comments_count'>{comments.length} {" "} {comments.length <= 1 ? "comentario" : "comentarios"}</div>
+            <div className='share_count'>2 compartido</div>
          </div>
       </div>
       <div className='post_actions'>
@@ -214,8 +225,26 @@ const  Post = ({post,user, profile}) => {
       </div>
       <div className="comments_wrap">
          <div className='comments_order'>
-            <CreateComment user={user}/>
          </div>
+         <CreateComment 
+            user={user}  
+            postId={post._id}  
+            setComments={setComments}
+            setCount={setCount}
+         />
+            {
+               comments && comments.sort((a,b) => {
+                  return new Date(b.commentAt) - new Date(a.commentAt);
+               }).slice(0,count).map((comment,i)=>(
+                  <Comment comment={comment} key={i}/>
+               ))
+            }
+            {
+               count < comments.length && 
+               <div className="view_comments" onClick={()=>showMore()}>
+                  Ver mas comentarios
+               </div>
+            }
       </div>
       { showMenu && (
          <PostMenu 

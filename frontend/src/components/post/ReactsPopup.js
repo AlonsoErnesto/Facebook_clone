@@ -1,7 +1,3 @@
-import { reactPost } from '../../functions/post';
-import { useSelector } from 'react-redux';
-
-
 const reactsArray = [
    {
       name:"like",

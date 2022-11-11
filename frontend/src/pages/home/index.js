@@ -11,8 +11,6 @@ import Storires from '../../components/home/stories';
 import Post from '../../components/post';
 import './style.css'
 
-// import useClickOutside from "../../helpers/clickOutside";
-
 export default function Home ({setVisible,posts}) {
 
    const {user} = useSelector((state)=>({...state}));

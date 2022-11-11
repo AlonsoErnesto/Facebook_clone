@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const { ObjectId } = mongoose.Schema
 
-const postSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema(
+{
    type : {
       type: String,
       enum: ["profilePicture","coverPicture",null],
@@ -32,11 +33,11 @@ const postSchema = new mongoose.Schema({
          },
          commentBy : {
             type:ObjectId,
-            red:"User",
+            ref:"User",
          },
          commentAt : {
-            type:Date,
-            default:new Date(),
+            type: Date,
+            required: true,
          },
       },
    ],
