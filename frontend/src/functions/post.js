@@ -21,7 +21,7 @@ export const createPost = async (
             Authorization:`Bearer ${token}`,
          },
       });
-      return "ok";
+      return {status:"ok",data};
    } catch (err) {
       return err.response.data.message;
    }
@@ -79,6 +79,24 @@ export const comment = async (
          comment,
          image,
       },
+      {
+         headers:{
+            Authorization:`Bearer ${token}`,
+         },
+      });
+      return data;
+   } catch (err) {
+      return err.response.data.message;
+   }
+}
+
+export const savePost = async (
+   postId,
+   token
+) => {
+   try {
+      const {data} = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/savePost/${postId}`,
+      {},
       {
          headers:{
             Authorization:`Bearer ${token}`,

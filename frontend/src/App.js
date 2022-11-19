@@ -55,12 +55,12 @@ const App = () => {
 
   return (
     <div>
-      { visible && <CreatePostPopup user={user} setVisible={setVisible}/> }
+      { visible && <CreatePostPopup user={user} setVisible={setVisible} posts={posts} dispatch={dispatch}/> }
       <Routes>
         <Route element={<LoggedInRoutes/>}>
-          <Route path='/profile' element={<Profile setVisible={setVisible}/>}exact/>
-          <Route path='/profile/:username' element={<Profile setVisible={setVisible}/>}exact/>
-          <Route path='/' element={<Home setVisible={setVisible} posts={posts}/>}exact/>
+          <Route path='/profile' element={<Profile setVisible={setVisible}/>} getAllPosts={getAllPosts} exact/>
+          <Route path='/profile/:username' element={<Profile setVisible={setVisible}/>} getAllPosts={getAllPosts} exact/>
+          <Route path='/' element={<Home setVisible={setVisible} posts={posts}/>} loading={loading} getAllPosts={getAllPosts} exact/>
           <Route path='/activate/:token' element={<Activate/>}exact/>
         </Route>
         <Route element={<NotLoggedInRoutes/>}>
