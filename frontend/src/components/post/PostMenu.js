@@ -1,12 +1,12 @@
 import { useState,useRef } from "react";
 import MenuItem from "./MenuItem";
 import useOnClickOutside from '../../helpers/clickOutside'
-import { savePost } from "../../functions/post";
+import { savePost, deletePost } from "../../functions/post";
 import { saveAs } from 'file-saver';
 
 const PostMenu = (props) => {
 
-   const {postUserId,userId,imagesLength,setShowMenu, token, postId,setCheckSaved,checkSaved,images} = props;
+   const {postUserId,userId,imagesLength,setShowMenu, token, postId,setCheckSaved,checkSaved,images,postRef} = props;
    const [test, setTest] = useState(postUserId === userId ? true : false);
    const menu = useRef(null);
    useOnClickOutside(menu,()=>setShowMenu(false))
@@ -25,6 +25,14 @@ const PostMenu = (props) => {
          saveAs(img.url,"image.jpg")
       });
    };
+
+  const deleteHandler = async () => {
+    const res = await deletePost(postId, token);
+    if (res.status === "ok"){
+    //postRef.current.style.display = "none";
+      postRef.current.remove();
+    }
+  }
 
   return (
    <ul className="post_menu" ref={menu}>
@@ -61,7 +69,11 @@ const PostMenu = (props) => {
       { test && (<MenuItem icon="date_icon" title="Editar fecha"/>)}
       { test && (<MenuItem icon="refresh_icon" title="Actualizar publicacion adjuntado"/>)}
       { test && (<MenuItem icon="archive_icon" title="Archivar publicacion"/>)}
-      { test && (<MenuItem icon="trash_icon" title="Mover al tacho" subtitle="Luego de 30 dias se eliminara."/>)}
+      { test && (
+        <div onClick={()=> deleteHandler()}>
+          <MenuItem icon="trash_icon" title="Mover al tacho" subtitle="Luego de 30 dias se eliminara."/>
+        </div>
+      )}
       { !test && <div className="line"></div>}
       { !test && (<MenuItem img="../../../icons/report.png" title="Reportar Publicacion" subtitle="Me incomoda este Post."/>)}
    </ul>

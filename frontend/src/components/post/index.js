@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import { Link } from 'react-router-dom';
 import './style.css';
 import { Dots, Public } from '../../svg'
@@ -64,10 +64,12 @@ const  Post = ({post,user, profile}) => {
    const showMore = () => {
       setCount((prev)=>prev + 3);
    };
+  
+  const postRef = useRef(null);
 
 
    return (
-   <div className='post' style={{width:`${profile && "100%"}`}}>
+   <div className='post' style={{width:`${profile && "100%"}`}} ref={postRef}>
       <div className="post_header">
          <Link to={`/profile/${post.user.username}`} className="post_header_left">
             <img src={post.user.picture} alt=""/>
@@ -148,9 +150,9 @@ const  Post = ({post,user, profile}) => {
             <div className='reacts_count_imgs'>
                { reacts && reacts.sort((a,b) => {
                         return b.count - a.count;
-                     }).slice(0,3).map((react) => (
+                     }).slice(0,3).map((react,i) => (
                      react.count > 0 && ( 
-                        <img src={`../../../reacts/${react.react}.svg`} alt=""/> 
+                        <img src={`../../../reacts/${react.react}.svg`} alt="" key={1}/> 
                      )
                   )) 
                }
@@ -259,6 +261,7 @@ const  Post = ({post,user, profile}) => {
             checkSaved={checkSaved}
             setCheckSaved={setCheckSaved}
             images={post.images}
+            postRef={postRef}
          />
       )}
    </div>
