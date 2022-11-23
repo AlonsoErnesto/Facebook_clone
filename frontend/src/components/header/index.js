@@ -45,7 +45,7 @@ const Header = ({page,getAllPosts}) => {
                      />
                </div>
          </div>
-         {showSearchMenu && <SearchMenu color={color} setShowSearchMenu={setShowSearchMenu}/>}
+         {showSearchMenu && <SearchMenu color={color} setShowSearchMenu={setShowSearchMenu} token={user.token}/>}
          {/* =========================== icons center =========== */}
          <div className="header_middle">
             <Link 

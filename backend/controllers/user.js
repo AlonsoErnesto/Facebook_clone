@@ -465,11 +465,11 @@ exports.unfriend = async (req,res) => {
       return res
       .status(400)
       .json({message:"No puedes eliminarte como amigo a ti mismo."});
-    }
+    };
   } catch (err) {
     res.status(500).json({ message: err.message });
-  }
-}
+  };
+};
 
 exports.deleteRequest = async (req,res) => {
   try {
@@ -496,8 +496,8 @@ exports.deleteRequest = async (req,res) => {
     }
   } catch (err) {
     res.status(500).json({ message: err.message });
-  }
-}
+  };
+};
 exports.acceptRequest = async (req,res) => {
   try {
     if( req.user.id !== req.params.id){
@@ -526,6 +526,76 @@ exports.acceptRequest = async (req,res) => {
     }
   } catch (err) {
     res.status(500).json({ message: err.message });
+  };
+};
+
+exports.search = async (req,res) => {
+  try {
+    const searchTerm = req.params.searchTerm;
+    const results = await User.find({$text: {$search: searchTerm}}).select(
+      "first_name last_name username picture"
+    ).limit(10);
+      res.json(results);
+  } catch (error) {
+      return res.status(500).json({message: error.message});
+  };
+};
+
+exports.addToSearchHistory = async (req,res) => {
+  try {
+    const { searchUser } = req.body;
+    const search = {
+      user:searchUser,
+      createdAt:new Date(),
+    };
+    const user = await User.findById(req.user.id);
+    const check = user.search.find((x)=>x.user.toString() === searchUser)
+    if (check){
+      await User.updateOne({
+        _id:req.user.id,
+        "search_id":check._id,
+      },{
+        $set:{"search.$.createdAt":new Date()},
+      });
+    } else {
+      await User.findByIdAndUpdate(req.user.id,{
+        $push:{
+          search,
+        }
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({message: error.message});
+  };
+};
+
+exports.getSearchHistory = async (req,res) => {
+  try {
+    const results = await User.findById(req.user.id)
+    .select("search")
+    .populate("search.user","first_name last_name username picture");
+    res.json(results.search);
+  } catch (error) {
+    return res.status(500).json({message: error.message});
   }
 }
+
+
+
+exports.removeFromSearch = async (req,res) => {
+  try {
+    const { searchUser } = req.body;
+    await User.updateOne(
+      {
+        _id:req.user.id,
+      },
+      {
+        $pull:{search:{user:searchUser}}
+      }
+    );
+  } catch (error) {
+    return res.status(500).json({message: error.message});
+  }
+}
+
 
