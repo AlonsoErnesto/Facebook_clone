@@ -234,4 +234,18 @@ export const removeFromSearch = async (
    }
  }
  
- 
+ export const getFriendsPageInfos = async (
+   token
+ ) => {
+   try {
+     const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/getFriendsPageInfos`,
+       {
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+       });
+     return {status:"ok",data};
+   } catch (err) {
+     return err.response.data.message;
+   }
+ }

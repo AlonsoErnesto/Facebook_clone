@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import "./style.css";
 import {Link} from "react-router-dom";
-import {ArrowDown, Friends, Gaming, HomeActive, Home,Logo, Market, Menu, Messenger, Notifications, Search, Watch} from "../../svg";
+import {ArrowDown, Friends, Gaming, HomeActive, Home,Logo, Market, Menu, Messenger, Notifications, Search, Watch, FriendsActive} from "../../svg";
 import { useSelector } from "react-redux";
 import SearchMenu from "./SearchMenu";
 import AllMenu from "./AllMenu";
@@ -58,8 +58,11 @@ const Header = ({page,getAllPosts}) => {
                   :  <Home/>
                }
             </Link>
-            <Link to="/" className="middle_icon hover1">
-               <Friends color={color} />
+            <Link to="/friends" className={`middle_icon ${page === "friends" ? "active" : "hover1"}`}>
+               {page  === "friends" 
+                  ?  <FriendsActive color={color} />
+                  :  <Friends/>
+               }
             </Link>
             <Link to="/" className="middle_icon hover1">
                <Watch color={color} />

@@ -13,6 +13,7 @@ import NotLoggedInRoutes from './routes/NotLoggedInRoutes';
 import CreatePostPopup from './components/createPostPopup';
 import { useSelector } from 'react-redux';
 import { postsReducer } from './functions/reducers'
+import Friends from './pages/friends';
 
 const App = () => {
 
@@ -60,6 +61,8 @@ const App = () => {
         <Route element={<LoggedInRoutes/>}>
           <Route path='/profile' element={<Profile setVisible={setVisible}/>} getAllPosts={getAllPosts} exact/>
           <Route path='/profile/:username' element={<Profile setVisible={setVisible}/>} getAllPosts={getAllPosts} exact/>
+          <Route path='/friends' element={<Friends setVisible={setVisible}/>} getAllPosts={getAllPosts} exact/>
+          <Route path='/friends/:type' element={<Friends setVisible={setVisible}/>} getAllPosts={getAllPosts} exact/>
           <Route path='/' element={<Home setVisible={setVisible} posts={posts}/>} loading={loading} getAllPosts={getAllPosts} exact/>
           <Route path='/activate/:token' element={<Activate/>}exact/>
         </Route>
