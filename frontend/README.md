@@ -13,4 +13,5 @@
     "react-moment"     // Fecha de los post 
     "moment-timezone"  // spanish
     "react-easy-crop"  // recorta las imagenes 
-    "file-saver"      // download archives
+    "file-saver"      // download archive
+    "npm i react-loading-skeleton" // loading animation

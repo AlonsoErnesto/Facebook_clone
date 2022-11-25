@@ -1,5 +1,6 @@
 import {useState,useRef,useEffect} from 'react';
 import { useSelector } from 'react-redux';
+import { HashLoader } from 'react-spinners';
 
 // COMPONENTS
 import CreatePost from '../../components/createPost';
@@ -21,18 +22,26 @@ export default function Home ({setVisible,posts,loading,getAllPosts}) {
    }, [loading,height]);
 
    return (
-      <div className="home" style={{height:`${height + 500}px`}}>
+      <div className="home" style={{height:`${height + 150}px`}}>
          <Header page="home" getAllPosts={getAllPosts}/>
          <LeftHome user={user}/>
          <div className="home_middle" ref={middle}>
             <Storires/>
             { user.verified === false && <SendVerification user={user}/> }
             <CreatePost user={user} setVisible={setVisible}/>
-            <div className="posts">
-               {posts.map((post,i)=>(
-                  <Post key={i} post={post} user={user}/>
-               ))}
-            </div>
+            {
+               loading ? (
+                  <div className="skeleton_loader">
+                     <HashLoader color="1876f2"/>
+                  </div>
+               ) : (
+                  <div className="posts">
+                  {posts.map((post,i)=>(
+                     <Post key={i} post={post} user={user}/>
+                  ))}
+               </div>
+            )}
+        
          </div>
          <RightHome user={user}/>
       </div>
