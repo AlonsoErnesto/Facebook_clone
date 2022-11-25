@@ -54,14 +54,14 @@ const Header = ({page,getAllPosts}) => {
                onClick={() => getAllPosts()}   
             >
                {page  === "home" 
-                  ?  <HomeActive color={color} />
-                  :  <Home/>
+                  ?  <HomeActive/>
+                  :  <Home color={color}/>
                }
             </Link>
             <Link to="/friends" className={`middle_icon ${page === "friends" ? "active" : "hover1"}`}>
                {page  === "friends" 
-                  ?  <FriendsActive color={color} />
-                  :  <Friends/>
+                  ?  <FriendsActive/>
+                  :  <Friends color={color}/>
                }
             </Link>
             <Link to="/" className="middle_icon hover1">

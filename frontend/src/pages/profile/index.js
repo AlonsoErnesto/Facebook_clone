@@ -19,6 +19,9 @@ import Friends from "./Friends";
 import Intro from '../../components/intro';
 import {useMediaQuery} from 'react-responsive';
 import CreatePostPopup from "../../components/createPostPopup";
+import Skeleton,{SkeletonTheme} from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
+import { HashLoader } from "react-spinners";
 
 const Profile =({getAllPosts})=> {
 
@@ -124,13 +127,102 @@ const Profile =({getAllPosts})=> {
       <Header page="profile" getAllPosts={getAllPosts}/>
       <div className="profile_top" ref={profileTop}>
          <div className="profile_container">
-               <Cover cover={profile.cover} visitor={visitor} photos={photos.resources}/>
-               <ProfilePictureInfos 
-                  profile={profile} 
-                  visitor={visitor}  
-                  photos={photos.resources} 
-                  othername={othername}
-               />
+            {
+               loading ? ( 
+                  <>
+                     <div className="profile_cover">
+                        <Skeleton 
+                           height="347px" 
+                           containerClassName="avatar-skeleton" 
+                           style={{borderRadius:"8px"}}
+                        />
+                     </div>
+                     <div 
+                        className="profile_img_wrap"
+                        style={{
+                           marginBottom:"-3rem",
+                           transform:"translateY(-8px)"
+                        }}
+                     >
+                        <div className="profile_w_left">
+                           <Skeleton 
+                              height="180px" 
+                              width="180px" 
+                              circle 
+                              containerClassName="avatar-skeleton"
+                              style={{transform:"translateY(-3rem)"}}
+                           />
+                           <div className="profile_w_col">
+                              <div className="profile_name">
+                                 <Skeleton 
+                                    height="35px" 
+                                    width="200px" 
+                                    containerClassName="avatar-skeleton"
+                                 />
+                                 <Skeleton 
+                                    height="30px" 
+                                    width="100px" 
+                                    containerClassName="avatar-skeleton"
+                                    style={{transform:"translateY(5px)"}}
+                                 />
+                              </div>
+                              <div className="profile_friend_count">
+                                 <Skeleton 
+                                    height="20px" 
+                                    width="90px" 
+                                    containerClassName="avatar-skeleton"
+                                    style={{marginTop:"5px"}}
+                                 />
+                              </div>
+                              <div className="profile_friend_imgs">
+                                 {
+                                    Array.from(new Array(6),(val,i)=>i +1).map((id,i)=>(
+                                       <Skeleton 
+                                          circle
+                                          height="32px" 
+                                          width="32px" 
+                                          containerClassName="avatar-skeleton"
+                                          style={{translate:`translateX(${-i*7}px)`}}
+                                       />
+                                    ))
+                                 }
+                              </div>
+                           </div>
+                        </div>
+                        <div className={`friendship ${!visitor && "fix"}`}>
+                           <Skeleton 
+                              height="36px" 
+                              width={120}
+                              containerClassName="avatar-skeleton" 
+                           />
+                           <div className="flex">
+                              <Skeleton 
+                                 height="36px" 
+                                 width={120}
+                                 containerClassName="avatar-skeleton" 
+                              />
+                              {visitor && (
+                                 <Skeleton 
+                                    height="36px" 
+                                    width={120}
+                                    containerClassName="avatar-skeleton" 
+                                 />
+                              )}
+                           </div>
+                        </div>
+                     </div>
+                  </>
+                  ):( <>
+                  <Cover cover={profile.cover} visitor={visitor} photos={photos.resources}/>
+                  <ProfilePictureInfos 
+                     profile={profile} 
+                     visitor={visitor}  
+                     photos={photos.resources} 
+                     othername={othername}
+                  />
+                  </>)
+            }
+              
                <ProfileMenu/>
          </div>
       </div>
@@ -143,9 +235,48 @@ const Profile =({getAllPosts})=> {
                               : check && scrollHeight >= height && leftHeight > 1000 && 'scrollFixed showMore'}`
                   }>
                   <div className="profile_left" ref={leftSide}>
-                     <Intro detailss={profile.details} visitor={visitor} setOtherName={setOtherName}/>
-                     <Photos userName={userName} token={user.token} photos={photos}/>
-                     <Friends friends={profile.friends}/>
+                   {
+                     loading ? (
+                     <>
+                      <div className="profile_card">
+                           <div className="profile_card_header">
+                             Informacion personal
+                           </div>
+                           <div className="skeleton_loader">
+                              <HashLoader color="1876f2"/>
+                           </div>
+                        </div>
+                        <div className="profile_card">
+                           <div className="profile_card_header">
+                              Fotos
+                              <div className="profile_header_link">
+                                 Ver todas las fotos.
+                              </div>
+                           </div>
+                           <div className="skeleton_loader">
+                              <HashLoader color="1876f2"/>
+                           </div>
+                        </div>
+                        <div className="profile_card">
+                           <div className="profile_card_header">
+                              Amigos
+                              <div className="profile_header_link">
+                                 Ver todo los amigos
+                              </div>
+                           </div>
+                           <div className="skeleton_loader">
+                              <HashLoader color="1876f2"/>
+                           </div>
+                        </div>
+                     </>
+                     ) : (
+                        <>
+                           <Intro detailss={profile.details} visitor={visitor} setOtherName={setOtherName}/>
+                           <Photos userName={userName} token={user.token} photos={photos}/>
+                           <Friends friends={profile.friends}/>
+                        </>
+                     )
+                   }
                      <div className="relative_fb_copyright">
                         <Link to="/">Privacy </Link><span>.</span>
                         <Link to="/">Terms </Link><span> .</span>
@@ -165,18 +296,25 @@ const Profile =({getAllPosts})=> {
                         />
                      }
                      <GridPosts/>
-                     <div className="posts">
-                        {  profile.posts &&
-                           profile.posts.length ?
-                           profile.posts.map((post)=>(
-                              <Post post={post} user={user} key={post._id} profile={profile}/>
-                           )):(
-                           <div className="no_posts">
-                              No se publicaron Posts
+                     {
+                        loading ? (
+                           <div className="skeleton_loader">
+                              <HashLoader color="1876f2"/>
                            </div>
-                           )
-                        }
-                     </div>
+                        ) : (
+                           <div className="posts">
+                           {  profile.posts &&
+                              profile.posts.length ?
+                              profile.posts.map((post)=>(
+                                 <Post post={post} user={user} key={post._id} profile={profile}/>
+                              )):(
+                              <div className="no_posts">
+                                 No se publicaron Posts
+                              </div>
+                              )
+                           }
+                        </div>
+                     )}
                   </div>
                </div>
             </div>
