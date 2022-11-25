@@ -37,8 +37,6 @@ const Index = ({username,setShow,pRef,photos}) => {
       };
    };
 
-
-
    return (
       <div className="blur">
          <input 

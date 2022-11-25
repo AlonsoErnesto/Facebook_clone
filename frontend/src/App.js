@@ -20,7 +20,7 @@ const App = () => {
 
 
   const [visible, setVisible] = useState(false);
-  const { user } = useSelector((state)=>({...state}));
+  const { user, darkTheme } = useSelector((state)=>({...state}));
   const [{ loading, error, posts}, dispatch] = useReducer(postsReducer,{
     loading:false,
     posts: [],
@@ -55,7 +55,7 @@ const App = () => {
 
 
   return (
-    <div>
+    <div className={darkTheme && 'dark'}>
       { visible && <CreatePostPopup user={user} setVisible={setVisible} posts={posts} dispatch={dispatch}/> }
       <Routes>
         <Route element={<LoggedInRoutes/>}>
