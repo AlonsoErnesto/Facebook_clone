@@ -401,6 +401,9 @@
    object-fit: cover;
    width: 100%;
 }
+.friends_menu_wrap {
+   position: relative;
+}
 
 .cover_crooper .reactEasyCrop_Container {
    border-bottom-right-radius:8px ;

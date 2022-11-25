@@ -202,6 +202,7 @@ header {
 
 .search_area .search input {
    padding-left: 4px;
+   color:var(--color-primary);
 }
 
 .search_area .seach svg {

@@ -21,6 +21,7 @@
 }
 
 .update_img {
+   position: absolute;
    width: 700px !important;
    height: 800px;
 }
