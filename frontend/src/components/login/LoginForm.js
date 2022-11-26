@@ -23,10 +23,10 @@ export default function LoginForm({ setVisible }) {
   };
   const loginValidation = Yup.object({
     email: Yup.string()
-      .required("Email address is required.")
-      .email("Must be a valid email.")
+      .required("El correo es necesario.")
+      .email("Correo o contraseña incorrecta.")
       .max(100),
-    password: Yup.string().required("Password is required"),
+    password: Yup.string().required("La contraseña es necesario"),
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ export default function LoginForm({ setVisible }) {
       <div className="login_1">
         <img src="../../icons/facebook.svg" alt="" />
         <span>
-          Facebook helps you connect and share with the people in your life.
+        Facebook te ayuda a comunicarte y compartir con las personas que forman parte de tu vida.
         </span>
       </div>
       <div className="login_2">
@@ -74,24 +74,24 @@ export default function LoginForm({ setVisible }) {
                 <LoginInput
                   type="text"
                   name="email"
-                  placeholder="Email address or phone number"
+                  placeholder="Correo electronico o numero telefonico"
                   onChange={handleLoginChange}
                 />
                 <LoginInput
                   type="password"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   onChange={handleLoginChange}
                   bottom
                 />
                 <button type="submit" className="blue_btn">
-                  Log In
+                  Iniciar sesion
                 </button>
               </Form>
             )}
           </Formik>
           <Link to="/reset" className="forgot_password">
-            Forgotten password?
+            Olvidaste tu contraseña?
           </Link>
           <DotLoader color="#1876f2" loading={loading} size={30} />
 
@@ -101,11 +101,11 @@ export default function LoginForm({ setVisible }) {
             className="blue_btn open_signup"
             onClick={() => setVisible(true)}
           >
-            Create Account
+            Crear cuenta nueva
           </button>
         </div>
         <Link to="/" className="sign_extra">
-          <b>Create a Page</b> for a celebrity, brand or business.
+          <b>Crea una pagina</b> para una celebridad, <br/> una marca o un negocio.
         </Link>
       </div>
     </div>
