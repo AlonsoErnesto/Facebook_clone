@@ -231,9 +231,14 @@ const Profile =({getAllPosts})=> {
             <div className="bottom_container">
                <PpYouMayKnow/>
                <div 
-                  className={`profile_grid ${check && scrollHeight >= height && leftHeight > 1000 ? 'scrollFixed showLess' 
-                              : check && scrollHeight >= height && leftHeight > 1000 && 'scrollFixed showMore'}`
-                  }>
+                  className={`profile_grid ${
+                    check && scrollHeight >= height && leftHeight > 1000
+                      ? "scrollFixed showLess"
+                      : check &&
+                        scrollHeight >= height &&
+                        leftHeight < 1000 &&
+                        "scrollFixed showMore"
+                  }`}>
                   <div className="profile_left" ref={leftSide}>
                    {
                      loading ? (

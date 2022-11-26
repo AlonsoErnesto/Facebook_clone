@@ -1,5 +1,5 @@
 .home {
-  height: 100vw;
+  min-height: auto;
   background: var(--bg-secondary);
   display: grid;
   grid-template-columns: repeat(3, 1fr);

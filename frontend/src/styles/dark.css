@@ -36,8 +36,9 @@
 .dark .circle i,
 .dark .small_circle i,
 .dark .small_circle svg,
-.dark .white_circle svg {
-  filter:invert(100%);
+.dark .white_circle svg,
+.dark .circle i {
+  filter:invert(100%) !important;
 }
 /* ---- HEADER ------ */
 .dark .left_home .small_circle{
