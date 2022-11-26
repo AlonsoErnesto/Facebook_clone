@@ -29,7 +29,6 @@ const Storires = () => {
    : query1175px 
    ? 4 
    : stories.length;
-
    return (
       <div className="stories">
          <div className="create_story_card">

@@ -22,7 +22,7 @@ export default function Home ({setVisible,posts,loading,getAllPosts}) {
    }, [loading,height]);
 
    return (
-      <div className="home" style={{height:`${height + 150}px`}}>
+      <div className="home" style={{height:`${height + 1050}px`}}>
          <Header page="home" getAllPosts={getAllPosts}/>
          <LeftHome user={user}/>
          <div className="home_middle" ref={middle}>

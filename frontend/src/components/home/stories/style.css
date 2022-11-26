@@ -98,12 +98,12 @@
 .white_circle{
    width: 40px;
    height: 40px;
-   border-radius:50%;
+   border-radius: 50%;
    background: var(--bg-primary);
-   display:grid;
+   display: grid;
    place-items: center;
-   position:absolute;
-   top:50%;
+   position: absolute;
+   top: 50%;
    transform: translateY(-50%);
    right: -5px;
    box-shadow: 1px 2px var(--shadow-1);

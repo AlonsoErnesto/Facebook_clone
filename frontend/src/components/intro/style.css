@@ -65,6 +65,8 @@
 }
 
 .infosBox {
+   position: fixed;
+   z-index: 999999999 !important;
    height: auto;
    padding-bottom: 20px;
    width: 800px !important;

@@ -1,14 +1,8 @@
 .right_home {
    position:fixed;
    left: 80.7vw;
-   top: 4.5rem;
+   top: 4rem;
    width: 17vw;  
-}
-.heading1{
-   margin-left: 10px;
-   margin-bottom: 15px;
-   font-weight: 500;
-   color:var(--color-secondary);
 }
 .splitter1{
    height: 1.3px;

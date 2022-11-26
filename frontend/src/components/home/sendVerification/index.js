@@ -24,12 +24,12 @@ const SendVerification = ({user}) => {
 
    return (
       <div className="send_verification">
-         <span className="">
-            Tu cuenta no esta activada, verifica en tu Email, antes que sea eliminada despues de 1 dia de haberse creado.
+         <span>
+            Verifica tu cuenta en tu correo, antes que se elimine!
          </span>
          <a onClick={()=>{
             sendVerificationLink();
-         }}>Click Aqui para reenviar el Link</a>
+         }}>Reenviar verificacion al correo</a>
          { success && <div className="success_text">{success}</div> }
          { error && <div className="error_text">{error}</div> }
       </div>

@@ -1,5 +1,6 @@
 .postBox {
-   position: relative;
+   position: fixed;
+   display: inline-block;
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%);
@@ -9,6 +10,7 @@
    min-height: 228px;
    width: 500px;
    border-radius: 5px;
+   z-index: 99999;
  }
  .box_header {
    position: relative;
@@ -40,6 +42,7 @@
    height: 38px;
    border-radius: 50%;
    object-fit: cover;
+   margin-top: -8px;
  }
  .box_col {
    transform: translateY(-7px);
