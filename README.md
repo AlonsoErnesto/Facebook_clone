@@ -12,7 +12,7 @@ Clonando Facebook con STACK MERN
   ## Info
 ```bash
 DB : MongoDB
-ORM : express
+Framework : express
 Frontend : React
 Backend : NodeJS
 stack : MERN
