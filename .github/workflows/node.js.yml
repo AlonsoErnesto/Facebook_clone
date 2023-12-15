@@ -20,7 +20,7 @@ jobs:
       with:
         node-version: '18.19'
         cache: 'npm'
-        cache-dependency-path: subdir/package-lock.json
+        cache-dependency-path: ${{github.workspace}}/functions/package-lock.json
     - run: cd backend
     - name: Print directory contents
       run: ls -R
