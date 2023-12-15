@@ -37,7 +37,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: ${{github.workspace}}/frontend/package-lock.json
-    - name: Navigate to the backend directory
+    - name: Navigate to the frontend directory
       run: cd ./frontend && npm install
     - run: |
         touch .env
