@@ -4,8 +4,6 @@ Clonando Facebook con STACK MERN
 
 [![Backend CI](https://github.com/AlonsoErnesto/Facebook_clone/actions/workflows/node.js.yml/badge.svg)](https://github.com/AlonsoErnesto/Facebook_clone/actions/workflows/node.js.yml)
 
-[![Frontend CI](https://github.com/AlonsoErnesto/Facebook_clone/actions/workflows/node.js.yml/badge.svg)](https://github.com/AlonsoErnesto/Facebook_clone/actions/workflows/node.js.yml)
-
   ![drawing](https://raw.githubusercontent.com/AlonsoErnesto/Facebook_clone/main/DOCFILES%20IMG/3.png)
   ![drawing](https://raw.githubusercontent.com/AlonsoErnesto/Facebook_clone/main/DOCFILES%20IMG/6.png)
   ![drawing](https://raw.githubusercontent.com/AlonsoErnesto/Facebook_clone/main/DOCFILES%20IMG/4.png)
