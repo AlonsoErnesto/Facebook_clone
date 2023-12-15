@@ -94,14 +94,13 @@ const Cover = ({cover,visitor,photos}) => {
                res,
                user.id,
                user.token);
-               console.log(new_post);
                if(new_post === "ok"){
                   setLoading(false);
                   setCoverPicture("");
                   cRef.current.src = res[0].url;
                } else {
                   setLoading(false);
-                  setError(new_post);
+                  setError(new_post.data);
                }
             }
             else {
