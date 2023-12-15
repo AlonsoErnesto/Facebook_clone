@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Navigate to the backend directory
-      run: cd backend
+      run: cd ./backend && pwd
     - name: Print current working directory
       run: pwd
     - name: Print directory contents
