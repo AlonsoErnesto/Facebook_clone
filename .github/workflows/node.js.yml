@@ -19,9 +19,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: ${{github.workspace}}/backend/package-lock.json
     - name: Navigate to the backend directory
-      run: cd ./backend && pwd
-    - name: Install dependencies
-      run: npm install
+      run: cd ./backend && npm install
     - run: |
         touch .env
         echo "${{secrets.PROD_ENV_BACK}}" > .env
