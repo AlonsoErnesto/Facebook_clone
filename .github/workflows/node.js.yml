@@ -24,8 +24,6 @@ jobs:
     - run: cd backend
     - name: Print directory contents
       run: ls -R
-    - name: Clear npm cache
-      run: npm cache clean --force
     - name: Install dependencies
       run: npm install
     - run: |
