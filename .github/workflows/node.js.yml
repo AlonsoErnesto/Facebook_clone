@@ -12,14 +12,14 @@ jobs:
         node-version: [18.x]
     steps:
     - uses: actions/checkout@v3
-    - name: Navigate to the backend directory
-      run: cd ./backend && pwd
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: '18.x'
         cache: 'npm'
         cache-dependency-path: ${{github.workspace}}/backend/package-lock.json
+    - name: Navigate to the backend directory
+      run: cd ./backend && pwd
     - name: Install dependencies
       run: npm install
     - run: |
