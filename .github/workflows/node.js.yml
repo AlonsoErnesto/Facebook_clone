@@ -14,22 +14,12 @@ jobs:
     - uses: actions/checkout@v3
     - name: Navigate to the backend directory
       run: cd ./backend && pwd
-    - name: Print current working directory
-      run: pwd
-    - name: Print directory contents
-      run: ls -R
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: '18.x'
         cache: 'npm'
         cache-dependency-path: ${{github.workspace}}/backend/package-lock.json
-    - name: Clear npm cache
-      run: npm cache clean --force
-    - name: Debug npm configuration
-      run: npm config list
-    - name: Update npm
-      run: npm install -g npm
     - name: Install dependencies
       run: npm install
     - run: |
