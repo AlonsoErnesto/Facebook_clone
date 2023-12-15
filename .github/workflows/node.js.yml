@@ -36,8 +36,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd frontend
-    - run: npm i
+        cache-dependency-path: ${{github.workspace}}/frontend/package-lock.json
+    - name: Navigate to the backend directory
+      run: cd ./frontend && npm install
     - run: |
         touch .env
         echo "${{secrets.PROD_ENV_FRONT}}" > .env
