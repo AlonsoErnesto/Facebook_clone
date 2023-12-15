@@ -21,7 +21,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: cd backend
-    - run: npm ci
+    - name: Print directory contents
+      run: ls -R
+    - name: Clear npm cache
+      run: npm cache clean --force
+    - name: Install dependencies
+      run: npm install
     - run: |
         touch .env
         echo "${{secrets.PROD_ENV_BACK}}" > .env
@@ -39,7 +44,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: cd frontend
-    - run: npm ci
+    - run: npm i
     - run: |
         touch .env
         echo "${{secrets.PROD_ENV_FRONT}}" > .env
