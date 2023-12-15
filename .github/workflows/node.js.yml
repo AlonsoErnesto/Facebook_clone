@@ -18,9 +18,9 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        node-version: '18.19'
+        node-version: '18.x'
         cache: 'npm'
-        cache-dependency-path: ${{github.workspace}}/functions/package-lock.json
+        cache-dependency-path: ${{github.workspace}}/backend/package-lock.json
     - run: cd backend
     - name: Print directory contents
       run: ls -R
