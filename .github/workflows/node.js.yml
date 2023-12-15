@@ -18,12 +18,14 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '18.19'
         cache: 'npm'
         cache-dependency-path: subdir/package-lock.json
     - run: cd backend
     - name: Print directory contents
       run: ls -R
+    - name: Clear npm cache
+      run: npm cache clean --force
     - name: Install dependencies
       run: npm install
     - run: |
