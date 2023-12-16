@@ -14,7 +14,11 @@ app.use(
     useTempFiles:true,
   })
 );
-
+app.use("/say",(req,res)=>{
+  return res.status(200).json({
+    message:"This server is start."
+  });
+});
 //routes
 readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)));
 
