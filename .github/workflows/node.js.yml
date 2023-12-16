@@ -23,8 +23,11 @@ jobs:
     - run: |
         touch .env
         echo "${{secrets.PROD_ENV_BACK}}" > .env
+    - name: Install PM2
+      run: npm install -g pm2
     - name: PM2 BackendAPI
       run: pm2 restart BackendAPI
+
   frontend:
     runs-on: self-hosted
     strategy:
