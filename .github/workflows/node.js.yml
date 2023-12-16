@@ -27,22 +27,3 @@ jobs:
       run: npm install -g pm2
     - name: PM2 BackendAPI
       run: pm2 restart BackendAPI
-
-  frontend:
-    runs-on: self-hosted
-    strategy:
-      matrix:
-        node-version: [18.x]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18.x'
-        cache: 'npm'
-        cache-dependency-path: ${{github.workspace}}/frontend/package-lock.json
-    - name: Navigate to the frontend directory
-      run: cd ./frontend && npm install
-    - run: |
-        touch .env
-        echo "${{secrets.PROD_ENV_FRONT}}" > .env
