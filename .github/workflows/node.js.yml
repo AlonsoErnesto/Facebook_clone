@@ -21,10 +21,14 @@ jobs:
     - name: Install PM2
       run: npm install -g pm2
     - name: Navigate to the backend directory install npm and pm2
-      run: cd ./backend && npm install && pm2 start server.js --name=BackendAPI
+      run: |
+        cd ./backend 
+        npm install 
+        pm2 start server.js --name=BackendAPI
     - name: PM2 BackendAPI
       run: pm2 restart BackendAPI
-    - run: |
+    - name: Create .env file
+      run: |
         touch .env
-        echo "${{secrets.PROD_ENV_BACK}}" > .env
+        echo "${{secrets.PROD_ENV_BACK}}" > ./backend/.env
     
