@@ -23,7 +23,8 @@ jobs:
     - run: |
         touch .env
         echo "${{secrets.PROD_ENV_BACK}}" > .env
-
+    - name: PM2 BackendAPI
+      run: pm2 restart BackendAPI
   frontend:
     runs-on: self-hosted
     strategy:
