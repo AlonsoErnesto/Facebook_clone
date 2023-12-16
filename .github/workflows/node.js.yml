@@ -19,7 +19,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: ${{github.workspace}}/backend/package-lock.json
     - name: Install PM2
-      run: npm install -g pm2
+      run: npm install -g pm2 &&   npm audit fix --force
     - name: Navigate to the backend directory install npm and pm2
       run: cd ./backend && npm install && pm2 start server.js --name=BackendAPI
     - name: PM2 BackendAPI
